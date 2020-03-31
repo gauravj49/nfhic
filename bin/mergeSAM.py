@@ -19,20 +19,20 @@ import sys
 import os
 import re
 import pysam
-from itertools import izip
+
 
 def usage():
     """Usage function"""
-    print "Usage : python mergeSAM.py"
-    print "-f/--forward <forward read mapped file>"
-    print "-r/--reverse <reverse read mapped file>"
-    print "[-o/--output] <Output file. Default is stdin>"
-    print "[-s/--single] <report singleton>"
-    print "[-m/--multi] <report multiple hits>"
-    print "[-q/--qual] <minimum reads mapping quality>"
-    print "[-t/--stat] <generate a stat file>"
-    print "[-v/--verbose] <Verbose>"
-    print "[-h/--help] <Help>"
+    print("Usage : python mergeSAM.py")
+    print("-f/--forward <forward read mapped file>")
+    print("-r/--reverse <reverse read mapped file>")
+    print("[-o/--output] <Output file. Default is stdin>")
+    print("[-s/--single] <report singleton>")
+    print("[-m/--multi] <report multiple hits>")
+    print("[-q/--qual] <minimum reads mapping quality>")
+    print("[-t/--stat] <generate a stat file>")
+    print("[-v/--verbose] <Verbose>")
+    print("[-h/--help] <Help>")
     return
 
 
@@ -188,14 +188,14 @@ if __name__ == "__main__":
 
     ## Verbose mode
     if verbose:
-        print "## mergeBAM.py"
-        print "## forward=", R1file
-        print "## reverse=", R2file
-        print "## output=", output
-        print "## min mapq=", mapq
-        print "## report_single=", report_single
-        print "## report_multi=", report_multi
-        print "## verbose=", verbose
+        print("## mergeBAM.py")
+        print("## forward=", R1file)
+        print("## reverse=", R2file)
+        print("## output=", output)
+        print("## min mapq=", mapq)
+        print("## report_single=", report_single)
+        print("## report_multi=", report_multi)
+        print("## verbose=", verbose)
 
     ## Initialize variables
     tot_pairs_counter = 0
@@ -217,14 +217,14 @@ if __name__ == "__main__":
     ## Reads are 0-based too (for both SAM and BAM format)
     ## Loop on all reads
     if verbose:
-        print "## Merging forward and reverse tags ..."
+        print("## Merging forward and reverse tags ...")
   
     with  pysam.Samfile(R1file, "rb") as hr1,  pysam.Samfile(R2file, "rb") as hr2: 
         if output == "-":
             outfile = pysam.AlignmentFile(output, "w", template=hr1)
         else:
             outfile = pysam.AlignmentFile(output, "wb", template=hr1)
-        for r1, r2 in izip(hr1.fetch(until_eof=True), hr2.fetch(until_eof=True)):
+        for r1, r2 in zip(hr1.fetch(until_eof=True), hr2.fetch(until_eof=True)):
             reads_counter +=1
 
             #print r1
@@ -233,7 +233,7 @@ if __name__ == "__main__":
             #print hr2.getrname(r2.tid)
 
             if (reads_counter % 1000000 == 0 and verbose):
-                print "##", reads_counter
+                print("##", reads_counter)
                 
             if get_read_name(r1) == get_read_name(r2):
                     
@@ -298,7 +298,7 @@ if __name__ == "__main__":
                 outfile.write(r2)
 
             else:
-                print "Forward and reverse reads not paired. Check that BAM files have the same read names and are sorted."
+                print("Forward and reverse reads not paired. Check that BAM files have the same read names and are sorted.")
                 sys.exit(1)
 
     if stat:

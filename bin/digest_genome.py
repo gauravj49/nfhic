@@ -36,7 +36,7 @@ def find_re_sites(filename, sequences, offset):
     for line in infile:
         c += 1
         if line.startswith(">"):
-            print line.split()[0][1:], "..."
+            print(line.split()[0][1:], "...")
             # If this is not the first chromosome, find the indices and append
             # them to the list
             if chr_id is not None:
@@ -53,8 +53,8 @@ def find_re_sites(filename, sequences, offset):
             big_str = ""
             chr_id = line.split()[0][1:]
             if chr_id in contig_names:
-                print "The fasta file contains several instance of",
-                print chr_id, ". Exit."
+                print("The fasta file contains several instance of", end=' ')
+                print(chr_id, ". Exit.")
                 sys.exit(-1)
             contig_names.append(chr_id)
         else:
@@ -138,15 +138,15 @@ if __name__ == "__main__":
 
         offpos = int(cseq.find('^'))
         if offpos == -1:
-            print "Unable to detect offset for", cseq
-            print "Please, use '^' to specified the cutting position,",
-            print "i.e A^GATCT for HindIII digestion"
+            print("Unable to detect offset for", cseq)
+            print("Please, use '^' to specified the cutting position,", end=' ')
+            print("i.e A^GATCT for HindIII digestion")
             sys.exit(-1)
 
         for nuc in list(set(cs)):
             if nuc != 'A' and nuc != 'C' and nuc != 'G' and nuc != 'T' and nuc != 'N' and nuc != '^':
-                print "Find unexpected character ['",nuc,"']in restriction motif"
-                print "Note that multiple motifs should be separated by a space (not a comma !)"
+                print("Find unexpected character ['",nuc,"']in restriction motif")
+                print("Note that multiple motifs should be separated by a space (not a comma !)")
                 sys.exit(-1)
 
         offset.append(offpos)
@@ -166,9 +166,9 @@ if __name__ == "__main__":
     if out is None:
         out = os.path.splitext(filename)[0] + "_fragments.bed"
 
-    print "Analyzing", filename
-    print "Restriction site(s)", ",".join(sequences)
-    print "Offset(s)",  ','.join(str(x) for x in offset)
+    print("Analyzing", filename)
+    print("Restriction site(s)", ",".join(sequences))
+    print("Offset(s)",  ','.join(str(x) for x in offset))
 
     # Read fasta file and look for rs per chromosome
     contig_names, all_indices = find_re_sites(filename, sequences,  offset=offset)
@@ -183,7 +183,7 @@ if __name__ == "__main__":
         valid_fragments.append(valid_fragments_chr)
 
     # Write results
-    print "Writing to", out, "..."
+    print("Writing to", out, "...")
     outfile = open(out, "w")
     for chrom_name, indices in zip(contig_names, valid_fragments):
         frag_id = 0

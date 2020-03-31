@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from __future__ import print_function
+
 from collections import OrderedDict
 import re
 
@@ -21,7 +21,7 @@ results['Samtools'] = '<span style="color:#999999;\">N/A</span>'
 results['MultiQC'] = '<span style="color:#999999;\">N/A</span>'
 
 # Search each file using its regex
-for k, v in regexes.items():
+for k, v in list(regexes.items()):
     with open(v[0]) as x:
         versions = x.read()
         match = re.search(v[1], versions)
@@ -43,11 +43,11 @@ description: 'are collected at run time from the software output.'
 data: |
     <dl class="dl-horizontal">
 ''')
-for k,v in results.items():
+for k,v in list(results.items()):
     print("        <dt>{}</dt><dd><samp>{}</samp></dd>".format(k,v))
 print ("    </dl>")
 
 # Write out regexes as csv file:
 with open('software_versions.csv', 'w') as f:
-    for k,v in results.items():
+    for k,v in list(results.items()):
         f.write("{}\t{}\n".format(k,v))

@@ -21,14 +21,14 @@ import pysam
 
 def usage():
     """Usage function"""
-    print "Usage : python mapped_2hic_dnase.py"
-    print "-r/--mappedReadsFile <BAM/SAM file of mapped reads>"
-    print "[-o/--outputDir] <Output directory. Default is current directory>"
-    print "[-d/--minCisDist] <Minimum distance between intrachromosomal contact to consider>"
-    print "[-g/--gtag] <Genotype tag. If specified, this tag will be reported in the valid pairs output for allele specific classification>"
-    print "[-a/--all] <Write all additional output files, with information about the discarded reads (self-circle, dangling end, etc.)>"
-    print "[-v/--verbose] <Verbose>"
-    print "[-h/--help] <Help>"
+    print("Usage : python mapped_2hic_dnase.py")
+    print("-r/--mappedReadsFile <BAM/SAM file of mapped reads>")
+    print("[-o/--outputDir] <Output directory. Default is current directory>")
+    print("[-d/--minCisDist] <Minimum distance between intrachromosomal contact to consider>")
+    print("[-g/--gtag] <Genotype tag. If specified, this tag will be reported in the valid pairs output for allele specific classification>")
+    print("[-a/--all] <Write all additional output files, with information about the discarded reads (self-circle, dangling end, etc.)>")
+    print("[-v/--verbose] <Verbose>")
+    print("[-h/--help] <Help>")
     return
 
 
@@ -229,11 +229,11 @@ if __name__ == "__main__":
 
     # Verbose mode
     if verbose:
-        print "## overlapMapped2HiCFragments.py"
-        print "## mappedReadsFile=", mappedReadsFile
-        print "## minCisDist=", minDist
-        print "## allOuput=", allOutput
-        print "## verbose=", verbose, "\n"
+        print("## overlapMapped2HiCFragments.py")
+        print("## mappedReadsFile=", mappedReadsFile)
+        print("## minCisDist=", minDist)
+        print("## allOuput=", allOutput)
+        print("## verbose=", verbose, "\n")
 
     # Initialize variables
     reads_counter = 0
@@ -271,7 +271,7 @@ if __name__ == "__main__":
 
     # Read the SAM/BAM file
     if verbose:
-        print "## Opening SAM/BAM file '", mappedReadsFile, "'..."
+        print("## Opening SAM/BAM file '", mappedReadsFile, "'...")
     samfile = pysam.Samfile(mappedReadsFile, "rb")
 
     # Reads are 0-based too (for both SAM and BAM format)
@@ -422,7 +422,7 @@ if __name__ == "__main__":
                         str(r2.mapping_quality) + "\n")
 
             if (reads_counter % 100000 == 0 and verbose):
-                print "##", reads_counter
+                print("##", reads_counter)
 
     # Close handler
     handle_valid.close()
