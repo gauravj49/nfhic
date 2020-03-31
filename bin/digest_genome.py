@@ -53,7 +53,7 @@ def find_re_sites(filename, sequences, offset):
             big_str = ""
             chr_id = line.split()[0][1:]
             if chr_id in contig_names:
-                print("The fasta file contains several instance of", end=' ')
+                print("The fasta file contains several instance of")
                 print(chr_id, ". Exit.")
                 sys.exit(-1)
             contig_names.append(chr_id)
