@@ -511,11 +511,11 @@ if (!params.dnase){
 
       """
       samtools merge -@ ${task.cpus} \\
-    	             -f ${prefix}_bwt2merged.bam \\
+    	            -f ${prefix}_bwt2merged.bam \\
                      ${bam1} ${bam2}
 
       samtools sort -@ ${task.cpus} -m 800M \\
-      	            -n -T /tmp/ \\
+      	            -n -T /media/rad/HDD1/hic/tcelldev/tmp \\
 	            -o ${prefix}_bwt2merged.sorted.bam \\
 	            ${prefix}_bwt2merged.bam
 

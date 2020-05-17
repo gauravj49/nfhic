@@ -139,7 +139,7 @@ if __name__ == "__main__":
         offpos = int(cseq.find('^'))
         if offpos == -1:
             print("Unable to detect offset for", cseq)
-            print("Please, use '^' to specified the cutting position,", end=' ')
+            print("Please, use '^' to specified the cutting position,")
             print("i.e A^GATCT for HindIII digestion")
             sys.exit(-1)
 
