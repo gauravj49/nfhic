@@ -1,1 +1,0 @@
-hicConvertFormat -m matrix.cool --inputFormat cool --outputFormat mcool -o multi_matrix.mcool --resolutions 20000 40000 70000 100000 200000
