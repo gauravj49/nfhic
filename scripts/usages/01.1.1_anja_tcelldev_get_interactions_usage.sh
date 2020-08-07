@@ -109,3 +109,21 @@ do
   echo "" >> ${compartmentLogsFile} 2>&1
   echo "#-------------------------------------------------" >> ${compartmentLogsFile} 2>&1
 done
+
+# 2.5) for ABC models: Convert raw matrices to juicer hic format
+echo "Converting to juicer hic..."
+outjuicerhicRawMatrixDir="${rawMatrixDir}/juicerhic"; mkdir -p ${outjuicerhicRawMatrixDir}
+totalSamples=$(ls ${rawMatrixDir}/*.matrix | wc -l)
+i=0
+for inputRawMatrix in ${rawMatrixDir}/*.matrix;
+do
+  bname=$(basename ${inputRawMatrix} .matrix)
+  juicerhicoutname=${outjuicerhicRawMatrixDir}/${bname}.hic
+  hicproBed=${rawMatrixDir}/${bname}_abs.bed
+  i=$((i+1)); echo "${i} of ${totalSamples}: ${bname}"
+  echo "hicConvertFormat  -m ${inputRawMatrix} --bedFileHicpro ${hicproBed} --inputFormat hicpro --outputFormat hic -o ${juicerhicoutname}"
+  # hicConvertFormat  -m ${inputRawMatrix} --bedFileHicpro ${hicproBed} --inputFormat hicpro --outputFormat hic -o ${juicerhicoutname}
+  echo "gzip ${juicerhicoutname}"
+  # gzip ${juicerhicoutname}
+  echo ""
+done
