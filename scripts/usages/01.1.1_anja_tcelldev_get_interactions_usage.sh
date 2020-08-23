@@ -17,6 +17,8 @@ fastqDir="${projDir}/fastq"; mkdir -p ${fastqDir}
 
 nextflow run /home/rad/users/gaurav/projects/workflows/nfhic --reads "${fastqDir}/*_R{1,2}.fastq.gz" --genome GRCm38 --restriction_site C^TAG --bin_size 10000,20000,40000,70000,100000,200000,500000,1000000 --saveReference -name "${projName}HiC" --max_memory '2.GB' --skipIce
 
+# nextflow run /home/rad/users/gaurav/projects/workflows/nfhic --reads "${fastqDir}/media/rad/HDD1/hic/anja/tcelldev/fastq/TcellDev-HSC-HSPCtoTcell-Rep3_mm_hic_pe_R{1,2}.fastq.gz" --genome GRCm38 --restriction_site C^TAG --bin_size 70000,1000000 --saveReference -name "${projName}HiC" --max_memory '2.GB' --skipIce
+
 #########################################################################################
 # 2) PREPROCESS OUTPUT OF THE PIPELINE FOR DOWNSTREAM ANALYSIS
 #########################################################################################
@@ -125,5 +127,20 @@ do
   # hicConvertFormat  -m ${inputRawMatrix} --bedFileHicpro ${hicproBed} --inputFormat hicpro --outputFormat hic -o ${juicerhicoutname}
   echo "gzip ${juicerhicoutname}"
   # gzip ${juicerhicoutname}
+  echo ""
+done
+
+# 2.6) Convert raw matrices to bedpe format
+echo "Converting to bedpe format..."
+bedpeDir="${rawMatrixDir}/bedpe"; mkdir -p ${bedpeDir}
+totalSamples=$(ls ${rawMatrixDir}/*.matrix | wc -l)
+i=0
+for inputRawMatrix in ${rawMatrixDir}/*.matrix;
+do
+  bname=$(basename ${inputRawMatrix} .matrix)
+  bedpeoutname=${bedpeDir}/${bname}.bedpe
+  hicproBed=${rawMatrixDir}/${bname}_abs.bed
+  i=$((i+1)); echo "${i} of ${totalSamples}: ${bname}"
+  echo "bash scripts/convert_hicPro_to_bedpe_format.sh ${inputRawMatrix} ${hicproBed} ${bedpeoutname}"
   echo ""
 done
